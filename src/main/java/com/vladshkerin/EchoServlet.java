@@ -15,7 +15,7 @@ import java.util.List;
  * @since 13.03.2016
  */
 public class EchoServlet extends HttpServlet {
-    List<Users> users = new ArrayList<Users>();
+    List<User> users = new ArrayList<User>();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -23,7 +23,7 @@ public class EchoServlet extends HttpServlet {
 
         StringBuilder sb = new StringBuilder();
         sb.append("<h3>List users: </h3>");
-        for (Users user : users)
+        for (User user : users)
             sb.append(user).append("<br>");
 
         resp.getWriter().write(sb.toString());
@@ -33,7 +33,7 @@ public class EchoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         String value = req.getParameter("name");
-        users.add(new Users(value));
+        users.add(new User(value));
     }
 
     @Override
@@ -44,7 +44,7 @@ public class EchoServlet extends HttpServlet {
 
         int id = findIdByIndex(index);
         if (id > -1)
-            users.set(id, new Users(index, name));
+            users.set(id, new User(index, name));
     }
 
     @Override
@@ -58,7 +58,7 @@ public class EchoServlet extends HttpServlet {
     }
 
     /**
-     * Search by field "index" in the collection Users.
+     * Search by field "index" in the collection User.
      *
      * @param index the value of the unique field "index" in collection
      * @return -1 if element do not find,
@@ -66,7 +66,7 @@ public class EchoServlet extends HttpServlet {
      */
     private int findIdByIndex(String index) {
         int id = -1;
-        for (Users user : users) {
+        for (User user : users) {
             if (user.id.equals(index)) {
                 id = users.indexOf(user);
                 break;
@@ -75,16 +75,16 @@ public class EchoServlet extends HttpServlet {
         return id;
     }
 
-    private class Users {
+    private class User {
         private String id;
         private String name;
 
-        public Users(String id, String name) {
+        public User(String id, String name) {
             this.id = id;
             this.name = name;
         }
 
-        public Users(String name) {
+        public User(String name) {
             this.id = String.valueOf(Math.abs(name.hashCode()));
             this.name = name;
         }
