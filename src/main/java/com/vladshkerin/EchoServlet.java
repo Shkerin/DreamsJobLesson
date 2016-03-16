@@ -32,6 +32,7 @@ public class EchoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
+
         String value = req.getParameter("name");
         users.add(new User(value));
     }
@@ -39,39 +40,37 @@ public class EchoServlet extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
-        String index = req.getParameter("index");
-        String name = req.getParameter("name");
 
-        int id = findIdByIndex(index);
-        if (id > -1)
-            users.set(id, new User(index, name));
+        String id = req.getParameter("id");
+        String name = req.getParameter("name");
+        int index = findIdById(id);
+        if (index > -1)
+            users.set(index, new User(id, name));
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String index = req.getParameter("index");
-        users.remove(index);
-
-//        int id = findIdByIndex(index);
-//        if (id > -1)
-//            users.remove(id);
+        String id = req.getParameter("id");
+        int index = findIdById(id);
+        if (index > -1)
+            users.remove(index);
     }
 
     /**
-     * Search by field "index" in the collection User.
+     * Search by field "id" in the collection User.
      *
-     * @param index the value of the unique field "index" in collection
+     * @param id the value of the unique field "id" in collection
      * @return -1 if element do not find,
-     *         index element in the collection
+     * index element in the collection
      */
-    private int findIdByIndex(String index) {
-        int id = -1;
+    private int findIdById(String id) {
+        int index = -1;
         for (User user : users) {
-            if (user.getId().equals(index)) {
-                id = users.indexOf(user);
+            if (user.getId().equals(id)) {
+                index = users.indexOf(user);
                 break;
             }
         }
-        return id;
+        return index;
     }
 }
