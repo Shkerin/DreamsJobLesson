@@ -52,9 +52,9 @@ public class EchoServlet extends HttpServlet {
         String index = req.getParameter("index");
         users.remove(index);
 
-        int id = findIdByIndex(index);
-        if (id > -1)
-            users.remove(id);
+//        int id = findIdByIndex(index);
+//        if (id > -1)
+//            users.remove(id);
     }
 
     /**
@@ -67,47 +67,11 @@ public class EchoServlet extends HttpServlet {
     private int findIdByIndex(String index) {
         int id = -1;
         for (User user : users) {
-            if (user.id.equals(index)) {
+            if (user.getId().equals(index)) {
                 id = users.indexOf(user);
                 break;
             }
         }
         return id;
-    }
-
-    private class User {
-        private String id;
-        private String name;
-
-        public User(String id, String name) {
-            this.id = id;
-            this.name = name;
-        }
-
-        public User(String name) {
-            this.id = String.valueOf(Math.abs(name.hashCode()));
-            this.name = name;
-        }
-
-        @Override
-        public String toString() {
-            return String.format("%-10s : %s", id, name);
-        }
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
     }
 }
