@@ -5,7 +5,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -33,15 +37,26 @@ public class EchoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
 
-        String value = req.getParameter("name");
-        users.add(new User(value));
+        Integer id = Integer.parseInt(req.getParameter("id"));
+        String name = req.getParameter("name");
+        Float fl = Float.parseFloat(req.getParameter("fl"));
+        String[] children = req.getParameterValues("children");
+        Calendar birthDay = Calendar.getInstance();
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+            Date date = format.parse(req.getParameter("birthDay"));
+            birthDay.setTime(date);
+        } catch (ParseException e) {
+            //TODO empty
+        }
+        users.add(new User(id, name, fl, birthDay, children));
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
 
-        String id = req.getParameter("id");
+        Integer id = Integer.parseInt(req.getParameter("id"));
         String name = req.getParameter("name");
         int index = findIdById(id);
         if (index > -1)
@@ -50,7 +65,7 @@ public class EchoServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String id = req.getParameter("id");
+        Integer id = Integer.parseInt(req.getParameter("id"));
         int index = findIdById(id);
         if (index > -1)
             users.remove(index);
@@ -63,7 +78,7 @@ public class EchoServlet extends HttpServlet {
      * @return -1 if element do not find,
      * index element in the collection
      */
-    private int findIdById(String id) {
+    private int findIdById(Integer id) {
         int index = -1;
         for (User user : users) {
             if (user.getId().equals(id)) {
