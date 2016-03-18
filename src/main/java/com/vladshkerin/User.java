@@ -57,6 +57,7 @@ public class User {
         if (this == otherObject) return true;
         if (otherObject == null) return false;
         if (getClass() != otherObject.getClass()) return false;
+
         User other = (User) otherObject;
         return Objects.equals(id, other.id) &&
                 Objects.equals(name, other.name);
