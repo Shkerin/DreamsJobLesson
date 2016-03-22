@@ -26,11 +26,13 @@ public class EchoServlet extends HttpServlet {
         resp.setContentType("text/html");
 
         StringBuilder sb = new StringBuilder();
-        sb.append("<h3>List users: </h3>");
+        sb.append("<h3>List users name: </h3>");
         for (User user : users)
             sb.append(user).append("<br>");
 
         resp.getWriter().write(sb.toString());
+
+        resp.getWriter().flush();
     }
 
     @Override
@@ -47,7 +49,7 @@ public class EchoServlet extends HttpServlet {
             Date date = format.parse(req.getParameter("birthDay"));
             birthDay.setTime(date);
         } catch (ParseException e) {
-            //TODO empty
+            e.printStackTrace();
         }
         users.add(new User(id, name, fl, birthDay, children));
     }

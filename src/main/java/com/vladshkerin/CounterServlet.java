@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -16,9 +17,7 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class CounterServlet extends HttpServlet {
 
-    private int count = 0;
-    private Lock countLock = new ReentrantLock();
-    private Object obj = new Object();
+    private volatile int count = 0;
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp)
@@ -31,10 +30,11 @@ public class CounterServlet extends HttpServlet {
     }
 
     /**
-     * Method 1 - object ReentrantLock
+     * Method 1 - ReentrantLock
      */
     private void method_1(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        Lock countLock = new ReentrantLock();
         countLock.lock();
         try {
             count++;
@@ -58,7 +58,6 @@ public class CounterServlet extends HttpServlet {
      */
     private void method_3(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-//        synchronized (obj) { // client lock
         synchronized (this) {
             count++;
                 resp.getWriter().write(count);
@@ -66,18 +65,20 @@ public class CounterServlet extends HttpServlet {
     }
 
     /**
-     * Method 4 - blocking queue
+     * Method 4 - AtomicInteger
      */
     private void method_4(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        //TODO add body
+        AtomicInteger atomicInteger = new AtomicInteger(count);
+        count = atomicInteger.incrementAndGet();
     }
 
     /**
-     * Method 5 - semaphore
+     * Method 5 - ThreadLocal
      */
     private void method_5(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        //TODO add body
+        SecurityContextHolder.setCount(count);
+        count = SecurityContextHolder.getCount();
     }
 }

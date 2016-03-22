@@ -65,7 +65,8 @@ public class User {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return 8 * id + name.hashCode();
+//        return Objects.hash(id, name);
     }
 
     public Integer getId() {
