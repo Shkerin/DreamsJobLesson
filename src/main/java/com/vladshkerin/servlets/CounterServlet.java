@@ -20,8 +20,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class CounterServlet extends HttpServlet {
 
     private volatile int count = 0;
-    private AtomicInteger atomicInteger = new AtomicInteger();
-    private static final ThreadLocal<Integer> threadLocalCount = new ThreadLocal<Integer>();
+    private final AtomicInteger atomicInteger = new AtomicInteger(count);
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp)
@@ -81,6 +80,7 @@ public class CounterServlet extends HttpServlet {
      */
     private void method_5(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        //
+        SecurityContextHolder.setCount(count);
+        SecurityContextHolder.increment();
     }
 }

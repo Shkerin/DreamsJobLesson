@@ -9,13 +9,18 @@ package com.vladshkerin;
 
 public class SecurityContextHolder {
 
-    private static final ThreadLocal<Integer> threadLocalCount = new ThreadLocal<Integer>();
+    private static final ThreadLocal<Integer> threadLocalCount = new ThreadLocal<>();
 
-    public static final Integer getCount() {
+    public static Integer getCount() {
         return threadLocalCount.get();
     }
 
-    public static final void setCount(Integer count) {
+    public static void setCount(Integer count) {
+        threadLocalCount.set(count);
+    }
+
+    public static void increment() {
+        int count = threadLocalCount.get();
         threadLocalCount.set(++count);
     }
 }
