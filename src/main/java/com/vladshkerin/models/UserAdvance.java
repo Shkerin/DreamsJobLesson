@@ -1,4 +1,4 @@
-package com.vladshkerin;
+package com.vladshkerin.models;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -7,29 +7,38 @@ import java.util.Objects;
 /**
  * Class to store the users id and name.
  */
-public class User {
-    private Integer id;
+public class UserAdvance {
+    private String id;
     private String name;
-    private Float fl;
+    private Float growth;
     private Calendar birthDay;
     private String[] children;
 
-    public User(String name) {
-        this.id = Math.abs(name.hashCode());
-        this.name = name;
-    }
+    public UserAdvance(String id, String name, Float growth, Calendar birthDay, String[] children) {
+        if (name == null)
+            throw new NullPointerException("Argument \"name\" construction is null");
+        if (id == null)
+            id = String.valueOf(name.hashCode());
+        if (growth == null)
+            growth = 0f;
+        if (birthDay == null)
+            birthDay = Calendar.getInstance();
+        if (children == null)
+            children = new String[]{};
 
-    public User(Integer id, String name) {
         this.id = id;
         this.name = name;
-    }
-
-    public User(Integer id, String name, Float fl, Calendar birthDay, String[] children) {
-        this.id = id;
-        this.name = name;
-        this.fl = fl;
+        this.growth = growth;
         this.birthDay = birthDay;
         this.children = children;
+    }
+
+    public UserAdvance(String id, String name) {
+        this(id, name, null, null, null);
+    }
+
+    public UserAdvance(String name) {
+        this(null, name, null, null, null);
     }
 
     @Override
@@ -46,7 +55,7 @@ public class User {
         return getClass().getName()
                 + "[id=" + id
                 + ",name=" + name
-                + ",fl=" + fl
+                + ",growth=" + growth
                 + ",birthDay=" + strBirthDay
                 + ",children=" + sbChildren
                 + "]";
@@ -58,22 +67,21 @@ public class User {
         if (otherObject == null) return false;
         if (getClass() != otherObject.getClass()) return false;
 
-        User other = (User) otherObject;
+        UserAdvance other = (UserAdvance) otherObject;
         return Objects.equals(id, other.id) &&
                 Objects.equals(name, other.name);
     }
 
     @Override
     public int hashCode() {
-        return 8 * id + name.hashCode();
-//        return Objects.hash(id, name);
+        return Objects.hash(id, name);
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -85,12 +93,12 @@ public class User {
         this.name = name;
     }
 
-    public Float getFl() {
-        return fl;
+    public Float getGrowth() {
+        return growth;
     }
 
-    public void setFl(Float fl) {
-        this.fl = fl;
+    public void setGrowth(Float growth) {
+        this.growth = growth;
     }
 
     public Calendar getBirthDay() {
