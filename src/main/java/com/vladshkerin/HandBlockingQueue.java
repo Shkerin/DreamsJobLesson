@@ -76,7 +76,7 @@ public class HandBlockingQueue {
      */
     private void checkNotNull(Integer value) {
         if (value == null)
-            throw new NullPointerException();
+            throw new NullPointerException("The value of the field \"value\" in method checkNotNull is null.");
     }
 
     /**
@@ -102,7 +102,7 @@ public class HandBlockingQueue {
     /**
      * Circularly increment i.
      */
-    final int inc(int i) {
+    private final int inc(int i) {
         return (++i == items.length) ? 0 : i;
     }
 }
