@@ -1,4 +1,6 @@
-package com.vladshkerin;
+package com.vladshkerin.servlets;
+
+import com.vladshkerin.SecurityContextHolder;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,6 +20,8 @@ import java.util.concurrent.locks.ReentrantLock;
 public class CounterServlet extends HttpServlet {
 
     private volatile int count = 0;
+    private AtomicInteger atomicInteger = new AtomicInteger();
+    private static final ThreadLocal<Integer> threadLocalCount = new ThreadLocal<Integer>();
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp)
@@ -69,8 +73,7 @@ public class CounterServlet extends HttpServlet {
      */
     private void method_4(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        AtomicInteger atomicInteger = new AtomicInteger(count);
-        count = atomicInteger.incrementAndGet();
+        atomicInteger.getAndIncrement();
     }
 
     /**
@@ -78,7 +81,6 @@ public class CounterServlet extends HttpServlet {
      */
     private void method_5(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        SecurityContextHolder.setCount(count);
-        count = SecurityContextHolder.getCount();
+        //
     }
 }
