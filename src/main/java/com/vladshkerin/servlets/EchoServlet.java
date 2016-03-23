@@ -1,4 +1,6 @@
-package com.vladshkerin;
+package com.vladshkerin.servlets;
+
+import com.vladshkerin.models.UserAdvance;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +21,8 @@ import java.util.List;
  * @since 13.03.2016
  */
 public class EchoServlet extends HttpServlet {
-    List<User> users = new ArrayList<User>();
+
+    private List<UserAdvance> userAdvances = new ArrayList<>(); //???
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -27,8 +30,8 @@ public class EchoServlet extends HttpServlet {
 
         StringBuilder sb = new StringBuilder();
         sb.append("<h3>List users name: </h3>");
-        for (User user : users)
-            sb.append(user).append("<br>");
+        for (UserAdvance userAdvance : userAdvances)
+            sb.append(userAdvance).append("<br>");
 
         resp.getWriter().write(sb.toString());
 
@@ -39,9 +42,9 @@ public class EchoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
 
-        Integer id = Integer.parseInt(req.getParameter("id"));
+        String id = req.getParameter("id");
         String name = req.getParameter("name");
-        Float fl = Float.parseFloat(req.getParameter("fl"));
+        Float growth = Float.parseFloat(req.getParameter("growth"));
         String[] children = req.getParameterValues("children");
         Calendar birthDay = Calendar.getInstance();
         try {
@@ -51,40 +54,40 @@ public class EchoServlet extends HttpServlet {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        users.add(new User(id, name, fl, birthDay, children));
+        userAdvances.add(new UserAdvance(id, name, growth, birthDay, children));
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
 
-        Integer id = Integer.parseInt(req.getParameter("id"));
+        String id = req.getParameter("id");
         String name = req.getParameter("name");
         int index = findIdById(id);
         if (index > -1)
-            users.set(index, new User(id, name));
+            userAdvances.set(index, new UserAdvance(id, name));
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Integer id = Integer.parseInt(req.getParameter("id"));
+        String id = req.getParameter("id");
         int index = findIdById(id);
         if (index > -1)
-            users.remove(index);
+            userAdvances.remove(index);
     }
 
     /**
-     * Search by field "id" in the collection User.
+     * Search by field "id" in the collection UserAdvance.
      *
      * @param id the value of the unique field "id" in collection
      * @return -1 if element do not find,
      * index element in the collection
      */
-    private int findIdById(Integer id) {
+    private int findIdById(String id) {
         int index = -1;
-        for (User user : users) {
-            if (user.getId().equals(id)) {
-                index = users.indexOf(user);
+        for (UserAdvance userAdvance : userAdvances) {
+            if (userAdvance.getId().equals(id)) {
+                index = userAdvances.indexOf(userAdvance);
                 break;
             }
         }
