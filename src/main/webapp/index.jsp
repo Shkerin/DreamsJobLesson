@@ -11,8 +11,21 @@
     <title></title>
 </head>
 <body>
-    <div>
-        <a href="<%=request.getContextPath()%>/views/UserView.jsp">Users</a>
-    </div>
+<%
+    if (session.isNew()) {
+        %>New user
+        <form action="<%=request.getContextPath()%>/login" method="post">
+            login : <input type="text" name="login"><br>
+            password : <input type="password" name="password"><br>
+            <input type="submit">
+        </form>
+        <%
+    } else {
+        %>Welcome back, <%=session.getAttribute("login")%>. <a href="<%=request.getContextPath()%>/logout">logout</a><%
+    }
+%>
+<div>
+    <a href="<%=request.getContextPath()%>/views/UserView.jsp">Users</a>
+</div>
 </body>
 </html>

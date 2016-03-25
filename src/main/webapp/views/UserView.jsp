@@ -13,6 +13,8 @@
     <title></title>
 </head>
 <body>
+    Welcome back, <%=session.getAttribute("login")%>. <%=request.getAttribute("role")%>
+    <a href="<%=request.getContextPath()%>/logout">logout</a>
 <div>Users</div>
 <table>
     <tr>
@@ -21,8 +23,10 @@
     </tr>
     <% for (User user : UserService.getInstance().getAll()) { %>
     <tr>
-        <td><%=user.getId()%></td>
-        <td><%=user.getLogin()%></td>
+        <td><%=user.getId()%>
+        </td>
+        <td><%=user.getLogin()%>
+        </td>
     </tr>
     <% } %>
 </table>

@@ -23,6 +23,8 @@ public class UserServlet extends HttpServlet {
         if (id != null && name != null) {
             UserService.getInstance().add(new User(id, name));
         }
-        resp.sendRedirect(String.format("%s/views/UserView.jsp", req.getContextPath()));
+        req.setAttribute("role", "role_admin");
+        req.getRequestDispatcher("/views/UserView.jsp").forward(req, resp);
+//        resp.sendRedirect(String.format("%s/views/UserView.jsp", req.getContextPath()));
     }
 }
