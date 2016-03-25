@@ -16,6 +16,7 @@ import java.io.IOException;
  * @since 13.03.2016
  */
 public class UserServlet extends HttpServlet {
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
