@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  * TODO: comment
  *
- * @author vladshkerin
+ * @author Vladimir Shkerin
  * @since 24.03.2016
  */
 public class LogoutServlet extends HttpServlet {
