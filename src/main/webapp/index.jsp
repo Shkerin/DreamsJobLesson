@@ -27,5 +27,14 @@
 <div>
     <a href="<%=request.getContextPath()%>/views/UserView.jsp">Users</a>
 </div>
+<div>
+    <form action="<%=request.getContextPath()%>/color" method="post">
+        <select name="color">
+            <option value="red">red</option>
+            <option value="blue">blue</option>
+        </select>
+        <input type="submit" value="Submit">
+    </form>
+</div>
 </body>
 </html>

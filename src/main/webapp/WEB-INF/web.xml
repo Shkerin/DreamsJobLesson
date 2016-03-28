@@ -38,4 +38,14 @@
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ColorServlet</servlet-name>
+        <servlet-class>com.vladshkerin.servlets.ColorServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ColorServlet</servlet-name>
+        <url-pattern>/color</url-pattern>
+    </servlet-mapping>
 </web-app>

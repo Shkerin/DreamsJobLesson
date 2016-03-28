@@ -18,6 +18,11 @@ import java.io.IOException;
 public class UserServlet extends HttpServlet {
 
     @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.sendRedirect(String.format("%s/views/UserView.jsp", req.getContextPath()));
+    }
+
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
         String name = req.getParameter("name");
@@ -25,7 +30,6 @@ public class UserServlet extends HttpServlet {
             UserService.getInstance().add(new User(id, name));
         }
         req.setAttribute("role", "role_admin");
-        req.getRequestDispatcher("/views/UserView.jsp").forward(req, resp);
-//        resp.sendRedirect(String.format("%s/views/UserView.jsp", req.getContextPath()));
+        doGet(req, resp);
     }
 }

@@ -11,9 +11,22 @@
 <html>
 <head>
     <title></title>
+    <%
+        for (Cookie cookie : request.getCookies()) {
+            if ("color".equals(cookie.getName())) {
+                %>
+            <style>
+                body {
+                    background-color: <%=cookie.getValue()%>
+                }
+            </style>
+            <%
+            }
+        }
+    %>
 </head>
 <body>
-    Welcome back, <%=session.getAttribute("login")%>. <%=request.getAttribute("role")%>
+    Welcome back, <%=session.getAttribute("login")%>, <%=request.getAttribute("role")%>
     <a href="<%=request.getContextPath()%>/logout">logout</a>
 <div>Users</div>
 <table>
