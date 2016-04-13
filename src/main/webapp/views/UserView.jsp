@@ -11,13 +11,14 @@
 <html>
 <head>
     <title></title>
+    <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/style/UserView.css">
     <%
         for (Cookie cookie : request.getCookies()) {
             if ("color".equals(cookie.getName())) {
                 %>
             <style>
                 body {
-                    background-color: <%=cookie.getValue()%>
+                    background-color: <%=cookie.getValue()%>;
                 }
             </style>
             <%
@@ -28,8 +29,10 @@
 <body>
     Welcome back, <%=session.getAttribute("login")%>, <%=request.getAttribute("role")%>
     <a href="<%=request.getContextPath()%>/logout">logout</a>
-<div>Users</div>
 <table>
+    <caption>
+        Table users
+    </caption>
     <tr>
         <th>Id</th>
         <th>Name</th>

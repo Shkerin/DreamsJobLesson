@@ -63,7 +63,7 @@ public class CounterServlet extends HttpServlet {
             throws ServletException, IOException {
         synchronized (this) {
             count++;
-                resp.getWriter().write(count);
+            resp.getWriter().write(count);
         }
     }
 

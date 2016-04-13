@@ -8,6 +8,7 @@ import java.util.Objects;
  * Class to store the users id and name.
  */
 public class UserAdvance {
+
     private String id;
     private String name;
     private Float growth;
@@ -105,6 +106,11 @@ public class UserAdvance {
         return birthDay;
     }
 
+    public String getBirthDayStr() {
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        return format.format(birthDay.getTime());
+    }
+
     public void setBirthDay(Calendar birthDay) {
         this.birthDay = birthDay;
     }
@@ -112,8 +118,21 @@ public class UserAdvance {
     public String[] getChildren() {
         return children;
     }
+    public String getChildrenStr() {
+        StringBuilder sbChildren = new StringBuilder();
+        for (String child : children)
+            sbChildren.append(child).append(", ");
+        if (sbChildren.length() > 0)
+            sbChildren.deleteCharAt(sbChildren.length() - 2);
+        return sbChildren.toString();
+    }
 
     public void setChildren(String[] children) {
         this.children = children;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

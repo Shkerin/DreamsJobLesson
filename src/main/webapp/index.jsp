@@ -9,6 +9,7 @@
 <html>
 <head>
     <title></title>
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/style/UserView.css">
 </head>
 <body>
 <%

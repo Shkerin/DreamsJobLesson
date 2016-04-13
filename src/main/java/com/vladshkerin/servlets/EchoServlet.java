@@ -3,8 +3,10 @@ package com.vladshkerin.servlets;
 import com.vladshkerin.models.UserAdvance;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.ParseException;
@@ -21,14 +23,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class EchoServlet extends HttpServlet {
 
-//    private List<UserAdvance> userAdvances = new ArrayList<>(); //???
-    private List<UserAdvance> syncUserList = Collections.synchronizedList(new ArrayList<UserAdvance>());
-    private List<UserAdvance> copyOnWriteList = new CopyOnWriteArrayList<>();
+    private final List<UserAdvance> syncUserList = new CopyOnWriteArrayList<>();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
-
         StringBuilder sb = new StringBuilder();
         sb.append("<h3>List users name: </h3>");
         synchronized (syncUserList) {
@@ -37,7 +36,6 @@ public class EchoServlet extends HttpServlet {
         }
 
         resp.getWriter().write(sb.toString());
-
         resp.getWriter().flush();
     }
 
