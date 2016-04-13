@@ -1,18 +1,17 @@
 package com.vladshkerin.servlets;
 
-import com.vladshkerin.models.UserAdvance;
+import com.vladshkerin.models.User;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -23,7 +22,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class EchoServlet extends HttpServlet {
 
-    private final List<UserAdvance> syncUserList = new CopyOnWriteArrayList<>();
+    private final List<User> syncUserList = new CopyOnWriteArrayList<>();
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -31,7 +30,7 @@ public class EchoServlet extends HttpServlet {
         StringBuilder sb = new StringBuilder();
         sb.append("<h3>List users name: </h3>");
         synchronized (syncUserList) {
-            for (UserAdvance userAdvance : syncUserList)
+            for (User userAdvance : syncUserList)
                 sb.append(userAdvance).append("<br>");
         }
 
@@ -45,17 +44,7 @@ public class EchoServlet extends HttpServlet {
 
         String id = req.getParameter("id");
         String name = req.getParameter("name");
-        Float growth = Float.parseFloat(req.getParameter("growth"));
-        String[] children = req.getParameterValues("children");
-        Calendar birthDay = Calendar.getInstance();
-        try {
-            SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-            Date date = format.parse(req.getParameter("birthDay"));
-            birthDay.setTime(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        syncUserList.add(new UserAdvance(id, name, growth, birthDay, children));
+        syncUserList.add(new User(id, name));
     }
 
     @Override
@@ -66,7 +55,7 @@ public class EchoServlet extends HttpServlet {
         String name = req.getParameter("name");
         int index = findIdById(id);
         if (index > -1)
-            syncUserList.set(index, new UserAdvance(id, name));
+            syncUserList.set(index, new User(id, name));
     }
 
     @Override
@@ -87,7 +76,7 @@ public class EchoServlet extends HttpServlet {
     private int findIdById(String id) {
         int index = -1;
         synchronized (syncUserList) {
-            for (UserAdvance userAdvance : syncUserList) {
+            for (User userAdvance : syncUserList) {
                 if (userAdvance.getId().equals(id)) {
                     index = syncUserList.indexOf(userAdvance);
                     break;
