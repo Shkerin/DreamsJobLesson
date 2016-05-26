@@ -22,8 +22,7 @@ public class ColorServlet extends HttpServlet {
         Cookie cookie = new Cookie("color", req.getParameter("color"));
         cookie.setMaxAge(Integer.MAX_VALUE);
         resp.addCookie(cookie);
-        resp.sendRedirect(req.getContextPath() + "/user");
 
-        Map<Integer[], String[]> map = new HashMap<>();
+        req.getRequestDispatcher("/user").forward(req, resp);
     }
 }

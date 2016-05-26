@@ -25,6 +25,7 @@ public class UserServlet extends HttpServlet {
             UserService.getInstance().add(new User(id, name));
         }
         req.setAttribute("role", "role_admin");
-        req.getRequestDispatcher(String.format("%s/views/UserView.jsp", req.getContextPath())).forward(req, resp);
+
+        resp.sendRedirect("/views/UserView.jsp");
     }
 }

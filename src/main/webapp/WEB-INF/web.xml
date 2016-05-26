@@ -1,5 +1,15 @@
 <web-app>
     <servlet>
+        <servlet-name>MainServlet</servlet-name>
+        <servlet-class>com.vladshkerin.servlets.MainServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>MainServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>EchoServlet</servlet-name>
         <servlet-class>com.vladshkerin.servlets.EchoServlet</servlet-class>
     </servlet>
