@@ -1,4 +1,5 @@
 <web-app>
+
     <servlet>
         <servlet-name>MainServlet</servlet-name>
         <servlet-class>com.vladshkerin.servlets.MainServlet</servlet-class>
@@ -8,6 +9,7 @@
         <servlet-name>MainServlet</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+
 
     <servlet>
         <servlet-name>EchoServlet</servlet-name>
@@ -19,6 +21,18 @@
         <url-pattern>/echo</url-pattern>
     </servlet-mapping>
 
+
+    <servlet>
+        <servlet-name>ColorServlet</servlet-name>
+        <servlet-class>com.vladshkerin.servlets.ColorServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ColorServlet</servlet-name>
+        <url-pattern>/color</url-pattern>
+    </servlet-mapping>
+
+
     <servlet>
         <servlet-name>UserServlet</servlet-name>
         <servlet-class>com.vladshkerin.servlets.UserServlet</servlet-class>
@@ -28,6 +42,7 @@
         <servlet-name>UserServlet</servlet-name>
         <url-pattern>/user</url-pattern>
     </servlet-mapping>
+
 
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>
@@ -39,6 +54,7 @@
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
 
+
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>com.vladshkerin.servlets.LoginServlet</servlet-class>
@@ -49,13 +65,4 @@
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>ColorServlet</servlet-name>
-        <servlet-class>com.vladshkerin.servlets.ColorServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>ColorServlet</servlet-name>
-        <url-pattern>/color</url-pattern>
-    </servlet-mapping>
 </web-app>

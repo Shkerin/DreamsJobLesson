@@ -22,6 +22,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
+        this.credentials.put("admin", "admin");
         this.credentials.put("root", "root");
     }
 
@@ -37,7 +38,7 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("password", password);
                 req.getRequestDispatcher("/WEB-INF/views/Main.jsp").forward(req, resp);
             } else {
-                req.setAttribute("error.login", "Invalid login or  password credentials!");
+                req.setAttribute("error_login", "Invalid login or  password credentials!");
                 req.getRequestDispatcher("/WEB-INF/views/Login.jsp").forward(req, resp);
             }
         }
