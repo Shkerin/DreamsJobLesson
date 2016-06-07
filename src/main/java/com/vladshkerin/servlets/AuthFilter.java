@@ -8,7 +8,7 @@ import java.io.IOException;
 /**
  * TODO: comment
  *
- * @author vlad
+ * @author Vladimir Shkerin
  * @since 05.06.2016
  */
 public class AuthFilter implements Filter {
